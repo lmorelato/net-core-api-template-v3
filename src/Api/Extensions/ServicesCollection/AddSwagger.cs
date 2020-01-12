@@ -33,19 +33,20 @@ namespace Template.Api.Extensions.ServicesCollection
                             Scheme = "Bearer"
                         });
 
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {
+                    options.AddSecurityRequirement(
+                        new OpenApiSecurityRequirement
                         {
-                            new OpenApiSecurityScheme
                             {
-                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" },
-                                Scheme = "oauth2",
-                                Name = "Bearer",
-                                In = ParameterLocation.Header,
-                            },
-                            new List<string>()
-                        }
-                    });
+                                new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" },
+                                    Scheme = "oauth2",
+                                    Name = "Bearer",
+                                    In = ParameterLocation.Header,
+                                },
+                                new List<string>()
+                            }
+                        });
 
                     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

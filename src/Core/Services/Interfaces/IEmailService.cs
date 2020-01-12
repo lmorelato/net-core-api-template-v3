@@ -6,6 +6,6 @@ namespace Template.Core.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task Send(EmailSettings settings, bool throwIfError = false);
+        Task Send(EmailOptions options, bool throwIfError = false);
     }
 }

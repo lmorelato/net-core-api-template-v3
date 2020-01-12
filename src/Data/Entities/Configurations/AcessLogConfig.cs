@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Template.Data.Entities.Configurations
 {
-    public class AccessLogConfig : IEntityTypeConfiguration<AccessLog>
+    public sealed class AccessLogConfig : IEntityTypeConfiguration<AccessLog>
     {
         public void Configure(EntityTypeBuilder<AccessLog> builder)
         {

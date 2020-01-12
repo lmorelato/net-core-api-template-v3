@@ -10,7 +10,7 @@ namespace Template.Data.Extensions.ModelBuilder
     public static partial class ModelBuilderExtensions
     {
         // see @ https://trailheadtechnology.com/entity-framework-core-2-1-automate-all-that-boring-boiler-plate/
-        public static void ApplyShadowProperties(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
+        public static Microsoft.EntityFrameworkCore.ModelBuilder ApplyShadowProperties(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -31,6 +31,8 @@ namespace Template.Data.Extensions.ModelBuilder
                     InvokeMethod(modelBuilder, clrType, nameof(SetIsDeletedShadowProperty));
                 }
             }
+
+            return modelBuilder;
         }
 
         private static void SetDateTimeTrackedProperties<T>(Microsoft.EntityFrameworkCore.ModelBuilder builder) where T : class, IDateTimeTracked
@@ -66,7 +68,7 @@ namespace Template.Data.Extensions.ModelBuilder
         {
             return typeof(ModelBuilderExtensions)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
-                .Single(t => t.IsGenericMethod && (t.Name == methodName));
+                .Single(t => t.IsGenericMethod && t.Name == methodName);
         }
     }
 }

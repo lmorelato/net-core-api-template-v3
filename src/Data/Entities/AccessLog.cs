@@ -4,7 +4,7 @@ using Template.Data.Entities.Interfaces;
 
 namespace Template.Data.Entities
 {
-    public class AccessLog : IBaseEntity
+    public sealed class AccessLog : IBaseEntity
     {
         public int Id { get; set; }
 

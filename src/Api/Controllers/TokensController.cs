@@ -9,7 +9,7 @@ namespace Template.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokensController : AppControllerBase
+    public sealed class TokensController : AppControllerBase
     {
         private readonly ITokenService tokenService;
         private readonly IUserSession userSession;
@@ -21,7 +21,7 @@ namespace Template.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TokenDto>> AuthenticateAsync([FromBody]CredentialsDto credentials)
+        public async Task<ActionResult<TokenDto>> AuthenticateAsync([FromBody] CredentialsDto credentials)
         {
             this.userSession.DisableTenantFilter = true;
             var result = await this.tokenService.AuthenticateAsync(credentials);

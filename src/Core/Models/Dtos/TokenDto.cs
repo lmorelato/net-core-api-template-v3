@@ -2,7 +2,7 @@
 
 namespace Template.Core.Models.Dtos
 {
-    public class TokenDto
+    public sealed class TokenDto
     {
         public string Token { get; set; }
 

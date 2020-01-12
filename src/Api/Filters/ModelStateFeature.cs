@@ -2,7 +2,7 @@
 
 namespace Template.Api.Filters
 {
-    public class ModelStateFeature
+    public sealed class ModelStateFeature
     {
         public ModelStateFeature(ModelStateDictionary state)
         {

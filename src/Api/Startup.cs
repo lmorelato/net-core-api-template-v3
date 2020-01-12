@@ -35,7 +35,7 @@ namespace Template.Api
                 .AddIdentity()
                 .AddAuthenticationToken(this.Configuration)
                 .AddAuthorizationPolicies()
-                .AddServicesMApping()
+                .AddServicesMapping()
                 .AddAutoMapper(typeof(AutoMapperProfile))
                 .AddMemoryCache()
                 .AddSwagger()

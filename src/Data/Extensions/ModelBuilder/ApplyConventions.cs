@@ -6,7 +6,7 @@ namespace Template.Data.Extensions.ModelBuilder
 {
     public static partial class ModelBuilderExtensions
     {
-        public static void ApplyConventions(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
+        public static Microsoft.EntityFrameworkCore.ModelBuilder ApplyConventions(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
         {
             var entities = modelBuilder.Model.GetEntityTypes();
 
@@ -36,6 +36,8 @@ namespace Template.Data.Extensions.ModelBuilder
                     fk.DeleteBehavior = DeleteBehavior.Restrict;
                 }
             }
+
+            return modelBuilder;
         }
     }
 }

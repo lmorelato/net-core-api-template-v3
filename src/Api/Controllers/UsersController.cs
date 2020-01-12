@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NToolbox.Extensions.Strings;
 using Template.Api.Controllers.Bases;
 using Template.Core.Models.Dtos;
 using Template.Core.Services.Interfaces;
@@ -11,17 +12,20 @@ using Template.Shared.Session;
 
 namespace Template.Api.Controllers
 {
-    public class UsersController : AuthControllerBase
+    public sealed class UsersController : AuthControllerBase
     {
         private readonly IUserService userService;
+        private readonly IUserAccountService userAccountService;
         private readonly ISharedResources localizer;
 
         public UsersController(
             IUserService userService,
+            IUserAccountService userAccountService,
             IUserSession currentUser,
             ISharedResources localizer) : base(currentUser)
         {
             this.userService = userService;
+            this.userAccountService = userAccountService;
             this.localizer = localizer;
         }
 
@@ -30,13 +34,7 @@ namespace Template.Api.Controllers
         /// </summary>
         /// <param name="id">User Id</param>
         /// <returns>Found user</returns>
-        /// <response code="200">Returns the found user</response>
-        /// <response code="401">Unauthorized</response>    
-        /// <response code="404">If not found the user</response>    
         [HttpGet("{id:int}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(404)]
         public async Task<ActionResult<UserDto>> GetAsync([FromRoute] int id)
         {
             if (id <= 0)
@@ -53,12 +51,8 @@ namespace Template.Api.Controllers
         /// </summary>
         /// <param name="credentials">User credentials</param>
         /// <returns>A newly created user</returns>
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="400">If the credentials are invalid</response>            
         [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
         public async Task<ActionResult<UserDto>> PostAsync([FromBody] CredentialsDto credentials)
         {
             var result = await this.userService.AddAsync(credentials);
@@ -71,15 +65,7 @@ namespace Template.Api.Controllers
         /// <param name="id">User Id</param>
         /// <param name="userDto">User data</param>
         /// <returns>No content</returns>
-        /// <response code="204">Returns no content</response>
-        /// <response code="400">If the user data is invalid</response>
-        /// <response code="401">Unauthorized</response> 
-        /// <response code="404">If not found the user</response>     
         [HttpPut("{id:int}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(404)]
         public async Task<IActionResult> PutAsync(
             [FromRoute] int id,
             [FromBody] UserDto userDto)
@@ -99,15 +85,7 @@ namespace Template.Api.Controllers
         /// </summary>
         /// <param name="id">User Id</param>
         /// <returns>No content</returns>
-        /// <response code="204">Returns no content</response>
-        /// <response code="400">If the user data is invalid</response>
-        /// <response code="401">Unauthorized</response> 
-        /// <response code="404">If not found the user</response>     
         [HttpPatch("{id:int}/culture")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateCultureAsync([FromRoute] int id)
         {
             if (id <= 0)
@@ -120,7 +98,7 @@ namespace Template.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Update user password
         /// </summary>
         /// <param name="id"></param>
         /// <param name="passwordDto"></param>
@@ -128,7 +106,7 @@ namespace Template.Api.Controllers
         [HttpPatch("{id:int}/password")]
         public async Task<IActionResult> UpdatePasswordAsync(int id, [FromBody] PasswordDto passwordDto)
         {
-            await this.userService.UpdatePasswordAsync(id, passwordDto);
+            await this.userAccountService.UpdatePasswordAsync(id, passwordDto);
             return this.NoContent();
         }
 
@@ -137,13 +115,7 @@ namespace Template.Api.Controllers
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns>No content</returns>
-        /// <response code="204">Returns no content</response>
-        /// <response code="400">If the user data is invalid</response>    
-        /// <response code="404">If not found the user</response>  
         [HttpDelete("{id:int}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             if (id <= 0)
@@ -156,7 +128,7 @@ namespace Template.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Resend confirmation email
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
@@ -164,12 +136,12 @@ namespace Template.Api.Controllers
         [HttpPost("{userName}/send-confirmation-email")]
         public async Task<IActionResult> SendConfirmationEmailAsync([FromRoute] string userName)
         {
-            await this.userService.SendConfirmationEmailAsync(userName);
+            await this.userAccountService.SendConfirmationEmailAsync(userName);
             return this.NoContent();
         }
 
         /// <summary>
-        /// 
+        /// Confirm user email
         /// </summary>
         /// <param name="id"></param>
         /// <param name="token"></param>
@@ -178,7 +150,7 @@ namespace Template.Api.Controllers
         [HttpGet("{id:int}/" + Constants.Api.Actions.ConfirmEmail, Name = Constants.Api.Actions.ConfirmEmail)]
         public async Task<ContentResult> ConfirmEmailAsync([FromRoute] int id, string token)
         {
-            await this.userService.ConfirmEmailAsync(id, token);
+            await this.userAccountService.ConfirmEmailAsync(id, token);
 
             return new ContentResult
             {
@@ -189,7 +161,7 @@ namespace Template.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Reset a user password
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
@@ -197,7 +169,12 @@ namespace Template.Api.Controllers
         [HttpPost("{userName}/password-reset")]
         public async Task<IActionResult> ResetPasswordAsync([FromRoute] string userName)
         {
-            await this.userService.ResetPasswordAsync(userName);
+            if (!userName.IsValidEmailAddress())
+            {
+                return this.NotFound(nameof(userName));
+            }
+
+            await this.userAccountService.ResetPasswordAsync(userName);
             return this.NoContent();
         }
     }

@@ -7,7 +7,7 @@ namespace Template.Data.Extensions.ModelBuilder
 {
     public static partial class ModelBuilderExtensions
     {
-        public static void ApplyIdentityConfiguration(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
+        public static Microsoft.EntityFrameworkCore.ModelBuilder ApplyIdentityConfiguration(this Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(
                 entity =>
@@ -109,6 +109,8 @@ namespace Template.Data.Extensions.ModelBuilder
                         .Property(p => p.Value)
                         .HasMaxLength(Constants.Database.IdentityVarcharMaxLength);
                 });
+
+            return modelBuilder;
         }
     }
 }

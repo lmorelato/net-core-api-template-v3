@@ -10,7 +10,7 @@ using Template.Data.Context;
 namespace Template.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200110010127_Initial")]
+    [Migration("20200111202341_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,6 +242,29 @@ namespace Template.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("IdentityRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "5b4381fc-c154-4203-9742-dfdad59bff84",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "296c6ba3-5aa1-4208-845e-969f2a5fa593",
+                            Name = "user",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "fa331633-27a0-40bc-91f2-1c0b37161cfe",
+                            Name = "tenant",
+                            NormalizedName = "TENANT"
+                        });
                 });
 
             modelBuilder.Entity("Template.Data.Entities.Identity.User", b =>

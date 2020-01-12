@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Serilog;
 using Template.Api.Controllers.Bases;
-using Template.Api.Extensions.HttpResponse;
 using Template.Api.Filters;
 using Template.Core.Exceptions;
 using Template.Core.Exceptions.Interfaces;

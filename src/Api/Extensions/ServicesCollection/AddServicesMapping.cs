@@ -11,7 +11,7 @@ namespace Template.Api.Extensions.ServicesCollection
 {
     public static partial class ServicesCollectionExtensions
     {
-        public static IServiceCollection AddServicesMApping(this IServiceCollection services)
+        public static IServiceCollection AddServicesMapping(this IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -24,7 +24,9 @@ namespace Template.Api.Extensions.ServicesCollection
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
-            
+
+            Core.Helpers.InternalServicesMapping.AddServicesMapping(services);
+
             return services;
         }
     }

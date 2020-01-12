@@ -40,13 +40,16 @@ namespace Template.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyIdentityConfiguration();
-            builder.ApplyShadowProperties();
-            builder.ApplyConventions();
-            builder.EnableAutoHistory<AuditLog>(o => { });
 
-            this.ApplyGlobalQueryFilters(builder);
+            builder
+                .ApplyIdentityConfiguration()
+                .ApplyIdentitySeed()
+                .ApplyShadowProperties()
+                .ApplyConventions()
+                .EnableAutoHistory<AuditLog>(o => { });
+
             this.ApplyConfigurations(builder);
+            this.ApplyGlobalQueryFilters(builder);
         }
     }
 }

@@ -43,10 +43,10 @@
                 From = "From",
                 To = "To",
                 Subject = "Subject",
-                TemplateID = "TemplateID",
+                TemplateId = "TemplateID",
                 TemplateLanguage = "TemplateLanguage",
                 TextPart = "TextPart",
-                HTMLPart = "HTMLPart",
+                HtmlPart = "HTMLPart",
                 Variables = "Variables";
             
             public static class Keys

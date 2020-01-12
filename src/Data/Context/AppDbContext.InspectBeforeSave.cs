@@ -70,22 +70,23 @@ namespace Template.Data.Context
             {
                 entry.CurrentValues["CreatedOn"] = timestamp;
 
-                if (entry.Entity is IFullTracked)
+                switch (entry.Entity)
                 {
-                    entry.CurrentValues["CreatedById"] = this.userSession.UserId;
-                }
-
-                if (entry.Entity is ITenant)
-                {
-                    entry.Property("TenantId").CurrentValue = this.userSession.TenantId.GetValueOrDefault();
+                    case IFullTracked _:
+                        entry.CurrentValues["CreatedById"] = this.userSession.UserId;
+                        break;
+                    case ITenant _:
+                        entry.Property("TenantId").CurrentValue = this.userSession.TenantId.GetValueOrDefault();
+                        break;
                 }
             }
         }
 
         private void CheckReadOnlyEntries()
         {
-            if (this.ChangeTracker.Entries<IReadOnly>().Any(entry =>
-                entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.State == EntityState.Deleted))
+            if (this.ChangeTracker.Entries<IReadOnly>().Any(
+                entry => entry.State == EntityState.Added ||
+                         entry.State == EntityState.Modified || entry.State == EntityState.Deleted))
             {
                 throw new ReadOnlyException("Attempt to change read-only entity");
             }

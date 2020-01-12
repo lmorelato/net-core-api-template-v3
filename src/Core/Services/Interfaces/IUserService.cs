@@ -14,13 +14,5 @@ namespace Template.Core.Services.Interfaces
         Task RemoveAsync(int userId);
 
         Task<UserDto> GetAsync(int userId);
-
-        Task SendConfirmationEmailAsync(string userName);
-
-        Task ConfirmEmailAsync(int userId, string token);
-
-        Task UpdatePasswordAsync(int userId, PasswordDto passwordDto);
-
-        Task ResetPasswordAsync(string userName);
     }
 }

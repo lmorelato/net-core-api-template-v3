@@ -3,9 +3,9 @@ using NToolbox.Extensions.Strings;
 
 namespace Template.Core.Models
 {
-    public class EmailSettings
+    public sealed class EmailOptions
     {
-        public EmailSettings()
+        public EmailOptions()
         {
             this.Variables = new Dictionary<string, string>();
         }

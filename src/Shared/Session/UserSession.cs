@@ -2,7 +2,7 @@
 
 namespace Template.Shared.Session
 {
-    public class UserSession : IUserSession
+    public sealed class UserSession : IUserSession
     {
         public int UserId { get; set; }
 

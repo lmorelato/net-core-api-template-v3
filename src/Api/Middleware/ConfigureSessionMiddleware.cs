@@ -9,7 +9,7 @@ namespace Template.Api.Middleware
 {
     // see @ https://trailheadtechnology.com/aspnetcore-multi-tenant-tips-and-tricks/
     // see @ https://www.jerriepelser.com/blog/aspnetcore-geo-location-from-ip-address/
-    public class ConfigureSessionMiddleware
+    public sealed class ConfigureSessionMiddleware
     {
         private readonly RequestDelegate next;
         private readonly string userNameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";

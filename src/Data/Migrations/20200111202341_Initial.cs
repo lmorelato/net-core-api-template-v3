@@ -203,6 +203,21 @@ namespace Template.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "IdentityRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 1, "5b4381fc-c154-4203-9742-dfdad59bff84", "admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "IdentityRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 2, "296c6ba3-5aa1-4208-845e-969f2a5fa593", "user", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "IdentityRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { 3, "fa331633-27a0-40bc-91f2-1c0b37161cfe", "tenant", "TENANT" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AccessLogs_UserId",
                 table: "AccessLogs",

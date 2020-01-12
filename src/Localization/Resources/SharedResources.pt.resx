@@ -183,4 +183,8 @@ Equipe Template Api</value>
   <data name="UserPending" xml:space="preserve">
     <value>Conta pendente.</value>
   </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>Email já está confirmado.
+</value>
+  </data>
 </root>

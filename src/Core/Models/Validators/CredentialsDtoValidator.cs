@@ -3,7 +3,7 @@ using Template.Core.Models.Dtos;
 
 namespace Template.Core.Models.Validators
 {
-    public class CredentialsDtoValidator : AbstractValidator<CredentialsDto>
+    public sealed class CredentialsDtoValidator : AbstractValidator<CredentialsDto>
     {
         public CredentialsDtoValidator()
         {

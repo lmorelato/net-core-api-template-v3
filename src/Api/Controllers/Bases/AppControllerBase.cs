@@ -20,7 +20,7 @@ namespace Template.Api.Controllers.Bases
 
         protected ObjectResultBase CustomResult(HttpStatusCode httpStatusCode, ModelStateDictionary modelState)
         {
-            return new ObjectResultBase(HttpStatusCode.BadRequest, modelState);
+            return new ObjectResultBase(httpStatusCode, modelState);
         }
 
         protected new ObjectResultBase BadRequest()

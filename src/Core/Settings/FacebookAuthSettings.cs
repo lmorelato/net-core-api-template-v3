@@ -1,6 +1,6 @@
 ﻿namespace Template.Core.Settings
 {
-    public class FacebookAuthSettings
+    public sealed class FacebookAuthSettings
     {
         public string AppId { get; set; }
 

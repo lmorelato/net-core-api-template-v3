@@ -6,7 +6,7 @@ using Template.Api.Controllers.Bases;
 
 namespace Template.Api.Filters
 {
-    public class ModelStateFilter : IActionFilter
+    public sealed class ModelStateFilter : IActionFilter
     {
         public void OnActionExecuting(ActionExecutingContext context)
         {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Template.Localization
 {
     // https://stackoverflow.com/questions/19961648/how-to-localize-asp-net-identity-username-and-password-error-messages/40801250#40801250
-    public class LocalizedIdentityErrorDescriber : IdentityErrorDescriber
+    public sealed class LocalizedIdentityErrorDescriber : IdentityErrorDescriber
     {
         /// <summary> 
         /// The <see cref="IStringLocalizer{LocalizedIdentityErrorDescriber}"/>

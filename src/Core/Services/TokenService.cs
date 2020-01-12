@@ -19,7 +19,7 @@ using Template.Shared.Session;
 
 namespace Template.Core.Services
 {
-    public class TokenService : ITokenService
+    public sealed class TokenService : ITokenService
     {
         private readonly AppDbContext context;
         private readonly UserManager<User> userManager;
@@ -76,7 +76,6 @@ namespace Template.Core.Services
         {
             var log = new AccessLog { UserId = user.Id, IpAddress = this.userSession.IpAddress };
             this.context.AccessLogs.Add(log);
-
             user.LastAccessOn = log.Date;
             await this.context.SaveChangesAsync();
         }

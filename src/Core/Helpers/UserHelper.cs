@@ -21,8 +21,8 @@ namespace Template.Core.Helpers
             int requiredLength = 6,
             int requiredUniqueChars = 4,
             bool requireDigit = true,
-            bool requireUppercase = false,
             bool requireLowercase = true,
+            bool requireUppercase = false,
             bool requireNonAlphanumeric = false)
         {
             var randomChars = new List<string>();

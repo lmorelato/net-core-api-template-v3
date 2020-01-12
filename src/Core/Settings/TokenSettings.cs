@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Template.Core.Settings
 {
     // https://tools.ietf.org/html/rfc7519
-    public class TokenSettings
+    public sealed class TokenSettings
     {
         public string Issuer { get; set; }
 

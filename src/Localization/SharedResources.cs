@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Template.Localization
 {
     // https://stackoverflow.com/questions/45167350/localization-in-external-class-libraries-in-asp-net-core
-    public class SharedResources : ISharedResources
+    public sealed class SharedResources : ISharedResources
     {
         private readonly IStringLocalizer localizer;
 

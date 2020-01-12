@@ -1,6 +1,6 @@
 ﻿namespace Template.Core.Settings
 {
-    public class MailjetApiSettings
+    public sealed class MailjetApiSettings
     {
         public string ApiKey { get; set; }
 
